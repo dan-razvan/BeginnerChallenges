@@ -1,0 +1,42 @@
+<!-- Constructii repetitive / for standard -->
+<script>
+const PARKING_PLACES = 7
+let freePlace = 3
+let decor = ""
+for (let x = 1 ; x <= PARKING_PLACES * 5; x++ ) {
+    decor += "#"
+}
+console.log(decor)
+
+let places = ""
+for (let x = 1; x <= PARKING_PLACES; x++) {
+    if(x != freePlace){
+        places += "| X |"
+    }else{
+        places += "|   |"
+    }
+}
+console.log(places)
+
+decor = ""
+for (let x = 1; x <= PARKING_PLACES * 5; x++) {
+    decor += "#"
+}
+console.log(decor)
+</script>
+
+<!-- 1. De ce a fost nevoie de variabilele decor si places ?
+    -variabila decor este necesara pentru a tipari hashtagurile de deasupra si de desubtul locurilor de parcare(decorul)
+    -variabila places este un empty string necesar pentru a adauga cate un loc de parcare (| x |) la fiecare ciclu
+   
+    2. De ce cele 2 variabile mentionate mai sus au fost declarate pana la cicluri?
+    - primul motiv este pentru ca sunt invocate de console.log, la nivel global, dupa ce se termina ciclu care le invoaca, 
+    caz in care variabila nu va fi gasita daca o declaram local in ciclu;
+    -al doilea motiv (presupunand ca facem mici ajustari si includem si console.log in ciclu)  este ca vom obtine o coloana
+    de strings, in loc de un sir. La fiecare ciclu variabila va fi redeclarata, si asta nu ne serveste aici
+
+    3. Ce inseamna const si de ce numele variabilei declarate prin acest prefix difera ca sintaxa de celelalte variabile?
+
+    - const anunta ca urmeaza sa fie declarata o variabila constanta. Aceasta e diferita de let prin faptul ca 
+    o data ce i-am dat o valoare, nu o mai putem redeclara.
+-->

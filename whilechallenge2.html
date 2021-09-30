@@ -1,0 +1,56 @@
+<!-- Utilizarea while pentru "template"-uri
+Se da urmatorul cod:
+
+let item = 1
+
+document.write(`<ul>`)
+while(item<=5) {
+  document.write(`<li>item ${item}</li>`)
+  item++
+}
+document.write(`</ul>`)
+rezultatul executiei caruia arata asa image
+
+Sa se modifice acest cod (adaugant in interior conditii prin if-else ), astfel incat executia sa dea urmatorul rezultat
+
+* 1. Monday
+* 2. Tuesday 
+* 3. Wednesday
+* 4. Thursday
+* 5. Friday
+* 6. Saturday
+* 7. Sunday -->
+
+<script>
+
+let item = 1
+
+document.write(`<ol>`);
+while(item<=7) {
+    switch(item) {
+        case 1:
+            document.write(`<li>Monday</li>`);
+            break;
+        case 2:
+            document.write(`<li>Tuesday</li>`);
+            break;
+        case 3:
+            document.write(`<li>Wednesday</li>`);
+            break;
+        case 4:
+            document.write(`<li>Thursday</li>`);
+            break;
+        case 5:
+            document.write(`<li>Friday</li>`);
+            break;
+        case 6:
+            document.write(`<li>Saturday</li>`);
+            break;
+        case 7:
+            document.write(`<li>Sunday</li>`);
+            break;
+}
+  item++;
+}
+document.write(`</ol>`);
+</script>
