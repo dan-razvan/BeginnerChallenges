@@ -1,0 +1,42 @@
+<!-- 4. Write a JavaScript conditional statement to find the largest of five numbers.Display the result in the console. 
+Sample numbers : -5, -2, -6, 0, -1
+Output : 0 -->
+
+
+<script>
+let num1 = prompt("Insert a number: ");
+let num2 = prompt("Insert a number: ");
+let num3 = prompt("Insert a number: ");
+let sorted = [];
+if(num1 > num2 && num1 > num3){
+  sorted[0] = num1;
+  if(num2 > num3){
+    sorted[1] = num2;
+    sorted[2] = num3;
+  }else{
+    sorted[1] = num3;
+    sorted[2] = num2;
+  }
+}else if(num2 > num1 && num2 > num3){
+  sorted[0] = num2;
+  if(num1 > num3){
+    sorted[1] = num1;
+    sorted[2] = num3;
+  }else{
+    sorted[1] = num3;
+    sorted[2] = num1;
+  }
+ 
+}else if(num3 > num1 && num3 > num2){
+  sorted[0] = num3;
+  if(num1>num2){
+    sorted[1] = num1;
+    sorted[2] = num2;
+  }else{
+    sorted[1] = num2;
+    sorted[2] = num1;
+  }
+}
+
+console.log(sorted);
+</script>
