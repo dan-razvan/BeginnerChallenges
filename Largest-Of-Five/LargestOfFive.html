@@ -25,3 +25,75 @@ if(num1 > num2 && num1 > num3 && num1 > num4 && num1 > num5){
 
 console.log(maxNum)
 </script>
+
+<script>
+  let num1 = prompt("Insert a number ")
+let num2 = prompt("Insert a number ")
+let num3 = prompt("Insert a number ")
+let num4 = prompt("Insert a number ")
+let num5 = prompt("Insert a number ")
+let maxNum;
+
+if(num1 > num2) {
+    if(num1 > num3){
+        if(num1 > num4){
+            if(num1 > num5){
+                maxNum = num1;
+            }else{
+                maxNum = num5;
+            }
+        }else{
+            if(num4 > num5){
+                maxNum = num4;
+            }else{
+                maxNum = num5;
+            }
+        }
+    }else{
+        if(num3>num4){
+            if(num3 > num5){
+                maxNum = num3;
+            }else{
+                maxNum = num5;
+            }
+        }else{
+            if(num4>num5){
+                maxNum = num4;
+            }else{
+                maxNum = num5;
+            }
+        }
+    }
+}else{
+    if (num2 > num3){
+        if(num2 > num4){
+            if(num2 > num5){
+                maxNum = num2;
+            }else{
+                maxNum = num5;
+            }
+        }else{
+            if(num4 > num5){
+                maxNum = num4;
+            }else{
+                maxNum = num5;
+            }
+        }
+    }else{
+        if(num3>num4){
+            if(num3 > num5){
+                maxNum = num3;
+            }else{
+                maxNum = num5;
+            }
+        }else{
+            if(num4>num5){
+                maxNum = num4;
+            }else{
+                maxNum = num5;
+            }
+        }
+    }
+}
+console.log(maxNum)
+</script>
