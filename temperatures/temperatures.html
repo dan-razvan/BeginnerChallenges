@@ -1,0 +1,47 @@
+<script>
+
+let temperatures = [];
+
+let closest = 10000; 
+let closestNegative = -10000;
+let difference = 10000;
+
+const n = parseInt(readline()); // the number of temperatures to analyse
+if(n === 0){
+    console.log( 0 );
+}
+var inputs = readline().split(' ');
+for (let i = 0; i < n; i++) {
+    const t = parseInt(inputs[i]);// a temperature expressed as an integer ranging from -273 to 5526
+    temperatures.push(t) 
+    
+}
+console.error(temperatures)
+
+//!!With this loop I found the closest temperature to 0
+//I assigned the closest negative one to the variable closestNegative
+//and the closest positive one to the variable closest
+for(let j  = 0; j < n; j++){
+    if(temperatures[j]< 0 && 0-temperatures[j] < difference ){
+        difference = 0 - temperatures[j]
+        closestNegative = temperatures[j]
+ 
+    }else if(temperatures[j] > 0 && temperatures[j] <= difference){
+        difference = temperatures[j];
+        closest = temperatures[j];   
+           
+    }
+
+}
+//I checked the conditions to see if the difference between closestNegative and 0 
+//is lower than closer and 0 and printed the lowest.
+if(0-closestNegative < closest && temperatures.length > 0){
+    console.log(closestNegative);
+}else if(closest <= 0 - closestNegative && temperatures.length >0){
+    console.log(closest);
+}else{
+
+    console.log() //I printed empty log in case the teperatures.length is 0;
+}
+
+</script>
