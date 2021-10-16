@@ -47,8 +47,8 @@ function moveUp(map, hero){
     return newMap
 }   
 
-// this function will return the char at a specified index. I am looking to find out what is the next character in the direction of 
-// our hero or enemy. I will be calling this function in direction() and actionEnemy()
+// this function will return the char at a specified index. I am looking to find out what is the next character in the direction that 
+// our hero or enemy moves towards. I will be calling this function in direction() and actionEnemy()
 
 
 let checkChar = (hero, idxDifference) => {return map.charAt(map.indexOf(hero) + idxDifference) } 
