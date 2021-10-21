@@ -22,100 +22,86 @@ function renderMap(map) {
 
 renderMap(map)
 
-
-function moveRight(map, hero){
+function move(map, hero, cb) {
     let idx = map.indexOf(hero)
-    let newMap = map.substring(0, idx) + "◻"+ hero + map.substring(idx+2)
+    let newMap = cb(idx)
     return newMap
 }
 
-function moveLeft(map, hero){ 
-    let idx = map.indexOf(hero)
-    let newMap = map.substring(0, idx - 1) + hero  + "◻"+ map.substring(idx+1) 
-    return newMap
+function sub(st, end){
+    return map.substring(st, end)
 }
 
-function moveDown(map, hero){
-    let idx = map.indexOf(hero)
-    let newMap = map.substring(0, idx) + "◻" + map.substring(idx+1, idx+11) + hero + map.substring(idx+12)
-    return newMap
-}
 
-function moveUp(map, hero){
-    let idx = map.indexOf(hero)
-    let newMap = map.substring(0,idx-11) + hero + map.substring(idx-10, idx) + "◻" + map.substring(idx+1)
-    return newMap
-}   
-
-// this function will return the char at a specified index. I am looking to find out what is the next character in the direction that 
-// our hero or enemy moves towards. I will be calling this function in direction() and actionEnemy()
+// I will callthe  function checkSymbol() in order to place boundries for hero and enemy. This function tells us what symbol 
+// comes next in the moving direction
+let checkSymbol = (hero, idxDifference) => {return map.charAt(map.indexOf(hero) + idxDifference) } 
 
 
-let checkChar = (hero, idxDifference) => {return map.charAt(map.indexOf(hero) + idxDifference) } 
 
-
-//I am using this function to save a lot of coding in action and enemy action functions
-
-function direction(hero, idxDifference, chooseDirection){
-    if(checkChar(hero, idxDifference) !== "▧"){
-        map = chooseDirection
-        renderMap(map)
-    }else if(checkChar(hero, idxDifference) === "▣"){
-        chooseDirection
-    }
-}
-
-function action( e ){
+function action(e){
     switch(e.code){
         case "ArrowUp":
-            direction("◉",-11,moveUp(map, "◉"));
-            break;
+            //I placed boundries for hero
+            if(checkSymbol("◉",-11 ) != "▧" && checkSymbol("◉",-11 ) != "▣"){   
+                map = move(map, "◉",(idx) => sub(0,idx-11) + "◉" + sub(idx-10, idx) + "◻" + sub(idx+1) )
+                renderMap(map)
+            }
+            break
         case "ArrowDown":
-            direction("◉", +11,moveDown(map, "◉"))
-            break;
-        case "ArrowLeft":
-            direction("◉", -1,moveLeft(map, "◉"))
-            break;
+            if(checkSymbol("◉",11) != "▧" && checkSymbol("◉",11 ) != "▣"){
+                map = move(map, "◉", (idx) => sub(0, idx) + "◻" +sub(idx+1, idx+11) + "◉" + sub(idx+12))
+                renderMap(map)
+            }
+            break
         case "ArrowRight":
-            direction("◉", +1, moveRight(map, "◉"))
-            break;
-        }   
+            if(checkSymbol("◉", 1) != "▧" && checkSymbol("◉",1 ) != "▣"){
+                map = move(map, "◉", (idx) => sub(0, idx) + "◻"+ "◉" + sub(idx+2))
+                renderMap(map)
+            }
+            break
+
+        case "ArrowLeft":
+            if(checkSymbol("◉", -1) != "▧" && checkSymbol("◉", -1 ) != "▣"){
+                map = move(map, "◉", (idx) => sub(0, idx - 1) + "◉"  + "◻"+ sub(idx+1))
+                renderMap(map)
+            }
+            break
     }
+}
 
-
-function actionEnemy( dir ){
-
+function actionEnemy( dir){
     switch(dir){
-        case "Up":    
-            if(checkChar("▣", -11) !== "◉"){         //condition to not kill our hero :D. If I delete thi condition it will work normally
-                direction("▣",-11,moveUp(map, "▣"));
+        case "Up":
+            if(checkSymbol("▣",-11 ) != "▧" ){
+                map = move(map, "▣", (idx) => sub(0,idx-11) + "▣" + sub(idx-10, idx) + "◻" + sub(idx+1) )
+                renderMap(map)
             }
-            break;
-    
-            //enemy bounces back down when catches hero (I thought it would be cool, but got bored of it)
-            // }else if(checkChar(-11) === "◉"){ 
-            //     map = moveDown(map, "▣")
-            //     renderMap(map)
-            // }
-        
-        case "Down":
-            if(checkChar("▣", 11) !== "◉"){
-                direction("▣", +11,moveDown(map, "▣"))
-            }
-            break;
-            
-        case "Left":
-            if(checkChar("▣", -1) !== "◉"){
-                direction("▣", -1,moveLeft(map, "▣"))
-            }
-            break;
 
-        case "Right":
-            if(checkChar("▣", 1) !== "◉"){
-                direction("▣", +1, moveRight(map, "▣"))
+            break
+        case "Down":
+            if(checkSymbol("▣",11 ) != "▧" ){
+                map = move(map, "▣", (idx) => sub(0,idx) + "◻" + sub(idx+1, idx+11) + "▣" + sub(idx+12) )
+                renderMap(map)
             }
-            break;
-  
+            break
+        case "Right":
+            if(checkSymbol("▣",1 ) != "▧" ){
+                map = move(map, "▣", (idx) => sub(0, idx) + "◻"+ "▣" + sub(idx+2) )
+                renderMap(map)
+            }
+            break
+        case "Left":
+            if(checkSymbol("▣", -1 ) != "▧" ){
+                map = move(map, "▣", (idx) => sub(0, idx - 1) + "▣"  + "◻"+ sub(idx+1))
+                renderMap(map)
+            }
+            break
+        case "Stop":
+            map = move(map, "▣", (idx) => sub(0, idx) + "▣" + sub(idx+1))
+            renderMap(map)
+            break
+
     }
 }
 
@@ -125,25 +111,39 @@ setInterval( () => {
     let idxDiff  = idxE - idxP
     let rows = Math.round(idxDiff / 11)
     let cols = idxDiff - rows * 11
-    console.log(idxDiff, rows, cols)
-
-    if(rows > 0) {
+    if(idxP == -1){                // this condition will stop the enemy from moving up when hero is dead
+        actionEnemy("Stop")  
+    }else if(rows > 0){
         actionEnemy("Up")
+        if(cols > 0){
+            actionEnemy("Left")
+        }else if(cols < 0){
+            actionEnemy("Right")
+        }else{
+            actionEnemy("Up")
+        }
     }else if(rows < 0){
         actionEnemy("Down")
-    }else if(cols > 0){
-        actionEnemy("Left")
-    }else if(cols < 0){
-        actionEnemy("Right")
+        if(cols > 0){
+            actionEnemy("Left")
+        }else if(cols < 0){
+            actionEnemy("Right")
+        }else{
+            actionEnemy("Down")
+        }
+    }else if(rows == 0){
+        if(cols > 0){
+            actionEnemy("Left")
+        }else if(cols < 0 ){
+            actionEnemy("Right")
+        }
     }
+    // I placed more conditions here for the enemy to move more naturally(diagonaly)
     
-}, 500)
+}, 1000)
 
 renderMap(map)
 
 
-// Questions: 
-// 1. How to shorten the move function?
-// 2. How to make enemy stop at the index where he killed the hero?
 
 
