@@ -12,10 +12,7 @@ let map = [
     [1, 0, 0, 0 , 0, 0, 0, 3, 0, 0, 1],
     [1, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1 , 1, 1, 1, 1, 1, 1, 1],
-    
-
-
+    [1, 1, 1, 1 , 1, 1, 1, 1, 1, 1, 1],   
 ]
 
 function renderMap(map) {
@@ -40,14 +37,10 @@ function renderMap(map) {
     gameMapContainer.innerHTML = output
 }
 
-    
-
-
-
 
 renderMap(map)
 
-
+//////////////////////////////////////////////////
 
 let moveVerticaly = (map, hero, dir ) => {
     for(let row = 0; row < map.length; row++){
@@ -81,8 +74,7 @@ let moveHorizontaly = (map, hero, dir ) => {
     } 
 }
 
-
-
+///////////////////////////////////////
 
 function action( e ){
     switch(e.code){
@@ -127,7 +119,7 @@ function action( e ){
         }
     }
 
-    
+   ////////////////////////////////////////// 
 
 setInterval (() => {
     let x2;
